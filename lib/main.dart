@@ -5,7 +5,6 @@ import 'package:flutter_app/github_repo.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -39,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var listView = new ListView(
       key: _listViewKey,
-      itemExtent: 70.0,
+      itemExtent: 50.0,
       children: _createWidgets(_items),
     );
     var container = new Container(
@@ -80,13 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _search() {
     var client = new GithubClient();
     client.get(_controller.text).then((result) {
-      _handleItemsString(result);
-    });
-  }
-
-  void _handleItemsString(var foo) {
-    setState(() {
-      _items = foo;
+      setState(() {
+        _items = result;
+      });
     });
   }
 
