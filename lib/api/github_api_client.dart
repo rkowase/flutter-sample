@@ -11,20 +11,19 @@ class GithubClient {
     var url = 'https://api.github.com/search/repositories?sort=stars&q=';
     var httpClient = new HttpClient();
 
-    List<GithubRepo> result;
-
     try {
       var request = await httpClient.getUrl(Uri.parse(url + query));
       var response = await request.close();
-      if (response.statusCode == HttpStatus.OK) {
-        var json = await response.transform(UTF8.decoder).join();
-        result = GithubRepo.fromJson(json);
-        return result;
-      } else {
-        return result;
+
+      if (response.statusCode != HttpStatus.OK) {
+        return null;
       }
+
+      var json = await response.transform(UTF8.decoder).join();
+      return GithubRepo.fromJson(json);
+
     } catch (exception) {
-      return result;
+      return null;
     }
   }
 }
