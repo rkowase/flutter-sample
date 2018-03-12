@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/github_api_client.dart';
-import 'package:flutter_app/github_repo.dart';
+import 'package:flutter_app/api/github_api_client.dart';
+import 'package:flutter_app/model/github_repo.dart';
 
 void main() => runApp(new MyApp());
 
@@ -92,7 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     items.forEach((item) {
       ret.add(
-          new Text(item.name)
+          new ListTile(
+            leading: new CircleAvatar(
+              backgroundImage: new NetworkImage(item.avatarUrl),
+            ),
+            title: new Text('${item.name} / ⭐ ${item.starCount}'),
+          )
       );
     });
     return ret;
